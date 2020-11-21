@@ -1,10 +1,11 @@
 import { Header } from "./components/layout/Header";
+import { Content } from "./components/layout/Content";
 
 export const App = () => {
   return (
     <div className="App">
       <Header />
-      <h1>Hello There!</h1>
+      <Content />
     </div>
   );
 };
