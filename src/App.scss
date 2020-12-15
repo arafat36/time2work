@@ -136,7 +136,7 @@ header {
     top: 0;
     width: 100%;
 
-    @include mq(900px) {
+    @include mq('900px') {
         padding: 0 10px;
     }
 
@@ -217,7 +217,7 @@ header {
 
     background-color: #fafafa;
 
-    @include mq(900px) {
+    @include mq('900px') {
         display: none;
     }
 
@@ -346,3 +346,38 @@ header {
         }
     }
 }
+
+/* SHOW CONFIRM DELETE */
+.project-delete-modal {
+    position: relative;
+
+    &__inner {
+        @include box-overlay();
+
+        z-index: 99;
+        width: 200px;
+        padding: 10px;
+        top: 10px;
+        right: 0;
+        background-color: #fff;
+
+        p {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            line-height: normal;
+            font-weight: normal;
+            font-size: 15px;
+        }
+
+        button {
+            @include btn('50px');
+        }
+
+        span {
+            @include cancel();
+            font-weight: normal;
+        }
+    }
+
+}
+
