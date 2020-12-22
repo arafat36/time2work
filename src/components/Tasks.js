@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Checkbox } from "./Checkbox";
 import { AddTask } from "./AddTask";
 import { useTasks } from "../hooks";
@@ -20,11 +20,10 @@ export const Tasks = () => {
     if (collatedTasksExist(selectedProject) && selectedProject) {
         projectName = getCollatedTitle(collatedTasks, selectedProject).name;
     }
-    window.p = projectName;
 
     useEffect(() => {
         document.title = `${projectName}: Todoist`;
-    })
+    }, [projectName]);
 
     return (
         <div className="tasks" data-testid="tasks">

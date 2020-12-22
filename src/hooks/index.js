@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { firebase } from "../firebase";
 import { collatedTasksExist } from "../helpers";
 import moment from "moment";
+import isEqual from "lodash.isequal";
 
 export const useTasks = selectedProject => {
     const [tasks, setTasks] = useState([]);
@@ -73,7 +74,11 @@ export const useProjects = () => {
                     docId: project.id,
                 }));
 
-                if (JSON.stringify(allProjects) !== JSON.stringify(projects)) {
+                if (!isEqual(allProjects, projects)) {
+                    console.log("new");
+                    console.table(allProjects)
+                    console.log("current");
+                    console.table(projects)
                     setProjects(allProjects);
                 }
             });

@@ -113,7 +113,11 @@ export const AddTask = ({
                 <button
                     type="submit"
                     className="add-task__submit"
-                    onClick={() => addTask()}
+                    onClick={() => 
+                        showQuickAddTask 
+                        ? addTask() && setShowQuickAddTask(false)
+                        : addTask()
+                    }
                 >
                     Add Task
                 </button>
