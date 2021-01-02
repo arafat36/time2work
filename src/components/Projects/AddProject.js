@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Box, Button, FormControl, Input, InputLabel } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { firebase } from '../../firebase';
@@ -28,15 +28,15 @@ export const AddProject = () => {
         setShow(false);
       });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     addProject();
     setShow((sh) => !sh);
-  };
+  });
 
-  const handleProjectName = (e) => setProjectName(e.target.value);
+  const handleProjectName = useCallback((e) => setProjectName(e.target.value));
 
-  const handleShowAddProject = () => setShow((sh) => !sh);
+  const handleShowAddProject = useCallback(() => setShow((sh) => !sh));
   return show ? (
     <form onSubmit={handleSubmit}>
       <Box
@@ -47,7 +47,6 @@ export const AddProject = () => {
         mb={2}
       >
         <Box m={1} mr="auto" flexGrow={1}>
-          {/* <TextField label="Enter project name:" fullWidth required /> */}
           <FormControl fullWidth>
             <InputLabel htmlFor="add-project-input">
               Enter project name:

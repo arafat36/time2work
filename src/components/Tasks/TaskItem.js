@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   Checkbox,
   Divider,
@@ -8,9 +8,10 @@ import {
 } from '@material-ui/core';
 
 export const TaskItem = ({ id, task, archiveTask }) => {
-  const handleArchive = () => {
+  const handleArchive = useCallback(() => {
     archiveTask(id);
-  };
+  }, [id]);
+
   return (
     <>
       <ListItem dense>

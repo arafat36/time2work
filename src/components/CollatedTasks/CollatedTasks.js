@@ -9,18 +9,13 @@ const collatedTasks = [
   { title: 'Next 7 Days', icon: DateRange, code: 'NEXT_7' },
 ];
 
-export const CollatedTasks = () => {
-  const { selectedProject, setSelectedProject } = useSelectedProjectValue();
-
-  return collatedTasks.map((item) => (
+export const CollatedTasks = React.memo(() =>
+  collatedTasks.map((item) => (
     <CollatedTask
       key={item.code}
       title={item.title}
       Icon={item.icon}
-      onClick={() => {
-        setSelectedProject(item.code);
-      }}
-      selected={selectedProject === item.code}
+      code={item.code}
     />
-  ));
-};
+  ))
+);
