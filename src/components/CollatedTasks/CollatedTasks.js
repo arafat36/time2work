@@ -1,6 +1,6 @@
 import React from 'react';
 import { DateRange, Inbox, Today } from '@material-ui/icons';
-import { SidebarItem } from './SidebarItem';
+import { CollatedTask } from './CollatedTask';
 import { useSelectedProjectValue } from '../../context';
 
 const collatedTasks = [
@@ -13,7 +13,7 @@ export const CollatedTasks = () => {
   const { selectedProject, setSelectedProject } = useSelectedProjectValue();
 
   return collatedTasks.map((item) => (
-    <SidebarItem
+    <CollatedTask
       key={item.code}
       title={item.title}
       Icon={item.icon}
