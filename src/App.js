@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
-
-import { Header } from './components/layout/Header';
-import { Content } from './components/layout/Content';
+import { makeStyles } from '@material-ui/core';
+import { Header } from './containers/layout/Header';
+import { Content } from './containers/layout/Content';
 import { SelectedProjectProvider, ProjectsProvider } from './context';
 
+const useStyles = makeStyles({
+  root: {
+    background: '#f9f9f9',
+    height: '100vh',
+  },
+});
+
 export const App = ({ darkModeDefault = false }) => {
+  const classes = useStyles();
   const [darkMode, setDarkMode] = useState(darkModeDefault);
   return (
     <SelectedProjectProvider>
       <ProjectsProvider>
-        <main
-          className={darkMode ? 'darkmode' : undefined}
-          data-testid="application"
-        >
+        <main className={classes.root} data-testid="application">
           <Header {...{ darkMode, setDarkMode }} />
           <Content />
         </main>

@@ -19,8 +19,11 @@ export const useTasks = (selectedProject) => {
         unsubscribe = unsubscribe.where('projectId', '==', selectedProject);
         break;
       case selectedProject === 'TODAY':
-        // eslint-disable-next-line prettier/prettier
-        unsubscribe = unsubscribe.where('date', '==', moment().format('DD/MM/YYYY'));
+        unsubscribe = unsubscribe.where(
+          'date',
+          '==',
+          moment().format('DD/MM/YYYY')
+        );
         break;
       case selectedProject === 'INBOX' || selectedProject === 0:
         unsubscribe = unsubscribe.where('date', '==', '');
@@ -71,10 +74,6 @@ export const useProjects = () => {
         }));
 
         if (!isEqual(allProjects, projects)) {
-          console.log('new');
-          console.table(allProjects);
-          console.log('current');
-          console.table(projects);
           setProjects(allProjects);
         }
       });

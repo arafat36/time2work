@@ -1,5 +1,5 @@
 import React from 'react';
-import { firebase } from '../firebase';
+import { firebase } from '../../firebase';
 
 export const Checkbox = ({ id }) => {
   const archiveTask = () => {
@@ -9,7 +9,7 @@ export const Checkbox = ({ id }) => {
   return (
     <div
       role="checkbox"
-      aria-checked="true"
+      aria-checked="false"
       tabIndex={0}
       className="checkbox-holder"
       data-testid="checkbox-action"
