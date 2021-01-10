@@ -36,7 +36,7 @@ export const Header = ({ darkMode, setDarkMode }) => {
     <AppBar position="sticky" className={classes.root}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6" className={classes.logo}>
-          LOGO
+          Time2Work
         </Typography>
         <IconButton className={classes.addButton}>
           <AddCircle />

@@ -6,6 +6,7 @@ import { getTitle, getCollatedTitle, collatedTasksExist } from '../../helpers';
 import { useSelectedProjectValue, useProjectsValue } from '../../context';
 import { firebase } from '../../firebase';
 import { TaskItem } from './TaskItem';
+import { AddTask } from './AddTask';
 
 export const Tasks = () => {
   const { selectedProject } = useSelectedProjectValue();
@@ -32,9 +33,12 @@ export const Tasks = () => {
 
   return (
     <Box m={1} my={3}>
-      <Typography variant="h3" gutterBottom>
-        {projectName}
-      </Typography>
+      <Box display="flex" flexDirection="column">
+        <Typography variant="h3" gutterBottom>
+          {projectName}
+        </Typography>
+        <AddTask />
+      </Box>
       <List>
         {tasks.length ? (
           tasks.map((task) => (

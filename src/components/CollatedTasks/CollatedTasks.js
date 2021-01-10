@@ -1,7 +1,7 @@
 import React from 'react';
 import { DateRange, Inbox, Today } from '@material-ui/icons';
+import { List } from '@material-ui/core';
 import { CollatedTask } from './CollatedTask';
-import { useSelectedProjectValue } from '../../context';
 
 const collatedTasks = [
   { title: 'Inbox', icon: Inbox, code: 'INBOX' },
@@ -9,13 +9,15 @@ const collatedTasks = [
   { title: 'Next 7 Days', icon: DateRange, code: 'NEXT_7' },
 ];
 
-export const CollatedTasks = React.memo(() =>
-  collatedTasks.map((item) => (
-    <CollatedTask
-      key={item.code}
-      title={item.title}
-      Icon={item.icon}
-      code={item.code}
-    />
-  ))
-);
+export const CollatedTasks = React.memo(() => (
+  <List component="nav" aria-label="main collated projects">
+    {collatedTasks.map((item) => (
+      <CollatedTask
+        key={item.code}
+        title={item.title}
+        Icon={item.icon}
+        code={item.code}
+      />
+    ))}
+  </List>
+));

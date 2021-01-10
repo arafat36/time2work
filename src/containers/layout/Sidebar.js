@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, Divider, List, Box } from '@material-ui/core';
+import { Collapse, Divider, Box } from '@material-ui/core';
 import { Projects } from '../../components/Projects/Projects';
 import { AddProject } from '../../components/Projects/AddProject';
 import { ProjectsToggle } from '../../components/Projects/ProjectsToggle';
@@ -10,10 +10,8 @@ export const Sidebar = () => {
 
   return (
     <Box m={1} my={3} pr={3}>
-      <List component="nav" aria-label="main collated projects">
-        <CollatedTasks />
-        <ProjectsToggle {...{ setShowProjects, showProjects }} />
-      </List>
+      <CollatedTasks />
+      <ProjectsToggle {...{ setShowProjects, showProjects }} />
       <Divider />
       <Collapse in={showProjects} timeout="auto">
         <AddProject />

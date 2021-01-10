@@ -8,7 +8,7 @@ export const ProjectsToggle = ({ setShowProjects, showProjects }) => {
   );
 
   return (
-    <ListItem button onClick={handleShowProjects}>
+    <ListItem component="div" button onClick={handleShowProjects}>
       <ListItemIcon>
         <Work />
       </ListItemIcon>
