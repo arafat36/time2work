@@ -10,13 +10,15 @@ import {
   makeStyles,
 } from '@material-ui/core';
 
+import { unArchiveTask, deleteTask } from '../../actions/tasks';
+
 const useStyles = makeStyles({
   itemText: {
     textDecoration: 'line-through',
   },
 });
 
-export function ArchivedTaskItem({ id, task, unArchiveTask, deleteTask }) {
+export function ArchivedTaskItem({ id, task }) {
   const classes = useStyles();
   const handleDelete = () => deleteTask(id);
   const handleUnarchive = () => unArchiveTask(id);

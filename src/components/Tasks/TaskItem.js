@@ -6,8 +6,9 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
+import { archiveTask } from '../../actions/tasks';
 
-export const TaskItem = ({ id, task, archiveTask }) => {
+export const TaskItem = ({ id, task }) => {
   const handleArchive = useCallback(() => {
     archiveTask(id);
   }, [id]);

@@ -9,7 +9,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ArchivedTaskItem } from './ArchivedTaskItem';
-import { firebase } from '../../firebase';
 import { useSelectedProjectValue } from '../../context';
 import { useTasks } from '../../hooks';
 
@@ -19,18 +18,6 @@ export const ArchivedTasks = () => {
   const [showArchived, setShowArchived] = useState(false);
 
   const handleShowArchived = () => setShowArchived((sh) => !sh);
-
-  const unArchiveTask = (id) => {
-    firebase
-      .firestore()
-      .collection('tasks')
-      .doc(id)
-      .update({ archived: false });
-  };
-
-  const deleteTask = (id) => {
-    firebase.firestore().collection('tasks').doc(id).delete();
-  };
 
   return (
     <>
@@ -50,12 +37,7 @@ export const ArchivedTasks = () => {
         <List>
           {archivedTasks.length ? (
             archivedTasks.map((task) => (
-              <ArchivedTaskItem
-                key={task.id}
-                id={task.id}
-                task={task.task}
-                {...{ unArchiveTask, deleteTask }}
-              />
+              <ArchivedTaskItem key={task.id} id={task.id} task={task.task} />
             ))
           ) : (
             <ListItem>

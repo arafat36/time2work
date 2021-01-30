@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { ListItem, makeStyles } from '@material-ui/core';
-import { firebase } from '../../firebase';
-import { useProjectsValue, useSelectedProjectValue } from '../../context';
+import { useSelectedProjectValue } from '../../context';
 import { DeleteProjectDialog } from './DeleteProjectDialog';
 import { ColoredBullet } from './ColoredBullet';
 import { DeleteProjectBtn } from './DeleteProjectBtn';
 import { ProjectName } from './ProjectName';
+import { deleteProject } from '../../actions/projects';
 
 const useStyles = makeStyles({
   root: {
@@ -19,23 +19,21 @@ const useStyles = makeStyles({
 });
 
 export const ProjectItem = ({ project }) => {
-  const [showConfirm, setShowConfirm] = useState(false);
-  const { projects, setProjects } = useProjectsValue();
-  const { selectedProject, setSelectedProject } = useSelectedProjectValue();
   const classes = useStyles();
+  const [showConfirm, setShowConfirm] = useState(false);
+  const { selectedProject, setSelectedProject } = useSelectedProjectValue();
 
-  const handleOnSelected = () => setSelectedProject(project.projectId);
-  const deleteProject = (docId) => {
-    firebase
-      .firestore()
-      .collection('projects')
-      .doc(docId)
-      .delete()
-      .then(() => {
-        setProjects([...projects]);
-        setSelectedProject('INBOX');
-      });
-  };
+  const handleOnSelected = useCallback(
+    () => setSelectedProject(project.projectId),
+    [project]
+  );
+
+  const handleDeleteProject = useCallback(() => {
+    deleteProject(project.docId).then(() => {
+      setSelectedProject('INBOX');
+      console.log('delted doc', project.docId);
+    });
+  }, [project]);
 
   return (
     <ListItem
@@ -52,7 +50,7 @@ export const ProjectItem = ({ project }) => {
           showConfirm,
           setShowConfirm,
           project,
-          deleteProject,
+          handleDeleteProject,
         }}
       />
     </ListItem>

@@ -1,42 +1,26 @@
 import React, { useCallback, useState } from 'react';
 import { Box, Button, FormControl, Input, InputLabel } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-import { firebase } from '../../firebase';
 import { generatePushId } from '../../helpers';
-import { useProjectsValue } from '../../context';
+import { addProject } from '../../actions/projects';
 
 export const AddProject = () => {
   const [show, setShow] = useState(false);
   const [projectName, setProjectName] = useState('');
-
   const projectId = generatePushId();
-  const { setProjects } = useProjectsValue();
-
-  const addProject = () =>
-    projectName &&
-    firebase
-      .firestore()
-      .collection('projects')
-      .add({
-        projectId,
-        name: projectName,
-        userId: 'userid-001',
-      })
-      .then(() => {
-        setProjects([]);
-        setProjectName('');
-        setShow(false);
-      });
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    addProject();
-    setShow((sh) => !sh);
+    addProject(projectId, projectName).then(() => {
+      setProjectName('');
+      setShow((sh) => !sh);
+    });
   });
 
   const handleProjectName = useCallback((e) => setProjectName(e.target.value));
 
   const handleShowAddProject = useCallback(() => setShow((sh) => !sh));
+
   return show ? (
     <form onSubmit={handleSubmit}>
       <Box
@@ -98,74 +82,3 @@ export const AddProject = () => {
     </Box>
   );
 };
-
-// export const AddProject = ({ shouldShow = false }) => {
-//   const [show, setShow] = useState(shouldShow);
-//   const [projectName, setProjectName] = useState('');
-
-//   const projectId = generatePushId();
-//   const { setProjects } = useProjectsValue();
-
-//   const addProject = () =>
-//     projectName &&
-//     firebase
-//       .firestore()
-//       .collection('projects')
-//       .add({
-//         projectId,
-//         name: projectName,
-//         userId: 'userid-001',
-//       })
-//       .then(() => {
-//         setProjects([]);
-//         setProjectName('');
-//         setShow(false);
-//       });
-
-//   return (
-//     <div className="add-project" data-test-id="add-project">
-//       {show && (
-//         <div className="add-project__input">
-//           <input
-//             value={projectName}
-//             onChange={(e) => setProjectName(e.target.value)}
-//             className="add-project__name"
-//             data-testid="project-name"
-//             type="text"
-//             placeholder="Name your project"
-//           />
-//           <button
-//             className="add-project__submit"
-//             type="button"
-//             onClick={() => addProject()}
-//             data-testid="add-project-submit"
-//           >
-//             Add Project
-//           </button>
-//           <span
-//             role="button"
-//             tabIndex={0}
-//             data-testid="hide-project-overlay"
-//             className="add-project__cancel"
-//             onClick={() => setShow(false)}
-//             onKeyDown={() => setShow(false)}
-//           >
-//             Cancel
-//           </span>
-//         </div>
-//       )}
-
-//       <span className="add-project__plus">+</span>
-//       <span
-//         role="button"
-//         tabIndex={0}
-//         data-testid="add-project-action"
-//         className="add-project__text"
-//         onClick={() => setShow(!show)}
-//         onKeyDown={() => setShow(!show)}
-//       >
-//         Add Project
-//       </span>
-//     </div>
-//   );
-// };

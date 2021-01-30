@@ -3,7 +3,7 @@ import { Container, Grid, makeStyles } from '@material-ui/core';
 import { Sidebar } from './Sidebar';
 import { Tasks } from '../../components/Tasks/Tasks';
 import { ArchivedTasks } from '../../components/ArchivedTasks/ArchivedTasks';
-import { AddTask } from '../../components/Tasks/AddTask';
+// import { AddTask } from '../../components/Tasks/AddTask';
 
 const useStyles = makeStyles({
   root: {

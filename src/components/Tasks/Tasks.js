@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, List, ListItem, Typography } from '@material-ui/core';
 import { useTasks } from '../../hooks';
 import { collatedTasks } from '../../constants';
 import { getTitle, getCollatedTitle, collatedTasksExist } from '../../helpers';
 import { useSelectedProjectValue, useProjectsValue } from '../../context';
-import { firebase } from '../../firebase';
 import { TaskItem } from './TaskItem';
 import { AddTask } from './AddTask';
 
@@ -12,24 +11,24 @@ export const Tasks = () => {
   const { selectedProject } = useSelectedProjectValue();
   const { projects } = useProjectsValue();
   const { tasks } = useTasks(selectedProject);
-
-  let projectName = '';
-  if (projects && selectedProject && !collatedTasksExist(selectedProject)) {
-    projectName = getTitle(projects, selectedProject).name;
-  }
-
-  if (collatedTasksExist(selectedProject) && selectedProject) {
-    projectName = getCollatedTitle(collatedTasks, selectedProject).name;
-    console.table(projects);
-  }
+  const [projectName, setProjectName] = useState('');
 
   useEffect(() => {
     document.title = `${projectName}: Todoist`;
   }, [projectName]);
 
-  const archiveTask = (id) => {
-    firebase.firestore().collection('tasks').doc(id).update({ archived: true });
-  };
+  useEffect(() => {
+    let title = '';
+    if (projects && selectedProject && !collatedTasksExist(selectedProject)) {
+      title = getTitle(projects, selectedProject).name;
+      setProjectName(title);
+    }
+
+    if (collatedTasksExist(selectedProject) && selectedProject) {
+      title = getCollatedTitle(collatedTasks, selectedProject).name;
+      setProjectName(title);
+    }
+  }, [selectedProject]);
 
   return (
     <Box m={1} my={3}>
@@ -47,7 +46,6 @@ export const Tasks = () => {
               {...{
                 id: task.id,
                 task: task.task,
-                archiveTask,
               }}
             />
           ))

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { collatedTasks } from '../constants';
 
 export const collatedTasksExist = (selectedProject) =>
@@ -34,3 +35,41 @@ export const generatePushId = (() => {
     return id;
   };
 })();
+
+export const getTaskDate = (taskDateRef, selectedProject) => {
+  let taskDate = '';
+  if (taskDateRef.current) {
+    switch (taskDateRef.current) {
+      case 'TODAY':
+        taskDate = moment().format('DD/MM/YYYY');
+        break;
+
+      case 'TOMORROW':
+        taskDate = moment().add(1, 'day').format('DD/MM/YYYY');
+        break;
+
+      case 'NEXT_7':
+        taskDate = moment().add(7, 'days').format('DD/MM/YYYY');
+        break;
+
+      default:
+        break;
+    }
+  } else if (collatedTasksExist(selectedProject)) {
+    switch (selectedProject) {
+      case 'TODAY':
+        taskDate = moment().format('DD/MM/YYYY');
+        break;
+
+      case 'NEXT_7':
+        taskDate = moment().add(7, 'days').format('DD/MM/YYYY');
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  return taskDate;
+  // return 'TODAY';
+};

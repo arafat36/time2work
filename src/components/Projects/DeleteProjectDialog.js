@@ -13,7 +13,7 @@ export const DeleteProjectDialog = ({
   showConfirm,
   project,
   setShowConfirm,
-  deleteProject,
+  handleDeleteProject,
 }) => (
   <Dialog
     open={showConfirm}
@@ -41,7 +41,7 @@ export const DeleteProjectDialog = ({
       <Button
         onClick={() => {
           setShowConfirm(false);
-          deleteProject(project.docId);
+          handleDeleteProject();
         }}
         color="primary"
         variant="contained"
