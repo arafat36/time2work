@@ -4,7 +4,7 @@ import { useSelectedProjectValue } from '../../context';
 import { TaskDate } from './TaskDate';
 import { collatedTasksExist, getTaskDate } from '../../helpers';
 import { ProjectOverlay } from './ProjectOverlay';
-import { addTask } from '../../actions/tasks';
+import { addTask } from '../../api/tasks';
 
 const useStyles = makeStyles({
   submitBtn: {

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useSelectedProjectValue } from '../context';
-import { deleteProject } from '../actions/projects';
+import { deleteProject } from '../api/projects';
 import ProjectItemUI from '../components/Projects/ProjectItem';
 
 export const ProjectItem = ({ project }) => {

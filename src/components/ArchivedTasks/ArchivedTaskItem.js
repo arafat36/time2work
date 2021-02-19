@@ -10,7 +10,7 @@ import {
   makeStyles,
 } from '@material-ui/core';
 
-import { unArchiveTask, deleteTask } from '../../actions/tasks';
+import { unArchiveTask, deleteTask } from '../../api/tasks';
 
 const useStyles = makeStyles({
   itemText: {

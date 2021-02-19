@@ -35,26 +35,38 @@ export const Header = ({ darkMode, setDarkMode }) => {
   return (
     <AppBar position="sticky" className={classes.root}>
       <Toolbar className={classes.toolbar}>
-        <Typography variant="h6" className={classes.logo}>
-          Time2Work
-        </Typography>
-        <IconButton className={classes.addButton}>
-          <AddCircle />
-        </IconButton>
-        <FormControlLabel
-          value="darkmode"
-          control={
-            <Switch
-              color="primary"
-              checked={darkMode}
-              onChange={handleDarkMode}
-            />
-          }
-          label="Dark Mode"
-          labelPlacement="end"
-        />
+        <Header.Logo className={classes.logo} />
+        <Header.AddTaskButton className={classes.addButton} />
+        <Header.DarkModeSwitch checked={darkMode} onChange={handleDarkMode} />
       </Toolbar>
     </AppBar>
+  );
+};
+
+Header.Logo = function Logo(props) {
+  return (
+    <Typography variant="h6" {...props}>
+      Time2Work
+    </Typography>
+  );
+};
+
+Header.AddTaskButton = function addTaskButton(props) {
+  return (
+    <IconButton {...props}>
+      <AddCircle />
+    </IconButton>
+  );
+};
+
+Header.DarkModeSwitch = function darkModeSwitch(props) {
+  return (
+    <FormControlLabel
+      value="darkmode"
+      control={<Switch color="primary" {...props} />}
+      label="Dark Mode"
+      labelPlacement="end"
+    />
   );
 };
 

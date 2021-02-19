@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Box, Button, FormControl, Input, InputLabel } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { generatePushId } from '../../helpers';
-import { addProject } from '../../actions/projects';
+import { addProject } from '../../api/projects';
 
 export const AddProject = () => {
   const [show, setShow] = useState(false);
