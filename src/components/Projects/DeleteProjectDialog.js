@@ -9,23 +9,23 @@ import {
   DialogTitle,
 } from '@material-ui/core';
 
+function DialogContainer(props) {
+  return <Box p={2} {...props} />;
+}
+
 export const DeleteProjectDialog = ({
   showConfirm,
+  handleOnClick,
   project,
-  setShowConfirm,
-  handleDeleteProject,
+  handleOnDelete,
 }) => (
   <Dialog
     open={showConfirm}
-    onClose={() => {
-      setShowConfirm(false);
-    }}
+    onClose={handleOnClick}
     aria-labelledby="alert-dialog-title"
     aria-describedby="alert-dialog-description"
     PaperProps={{
-      component: function DialogContainer(props) {
-        return <Box p={2} {...props} />;
-      },
+      component: DialogContainer,
     }}
   >
     <DialogTitle id="alert-dialog-title">
@@ -39,23 +39,14 @@ export const DeleteProjectDialog = ({
     </DialogContent>
     <DialogActions>
       <Button
-        onClick={() => {
-          setShowConfirm(false);
-          handleDeleteProject();
-        }}
+        onClick={handleOnDelete}
         color="primary"
         variant="contained"
         autoFocus
       >
         Delete Project
       </Button>
-      <Button
-        onClick={() => {
-          setShowConfirm(false);
-        }}
-        color="default"
-        variant="contained"
-      >
+      <Button onClick={handleOnClick} color="default" variant="contained">
         Cancel
       </Button>
     </DialogActions>

@@ -1,11 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { ListItem, makeStyles } from '@material-ui/core';
-import { useSelectedProjectValue } from '../../context';
 import { DeleteProjectDialog } from './DeleteProjectDialog';
 import { ColoredBullet } from './ColoredBullet';
 import { DeleteProjectBtn } from './DeleteProjectBtn';
 import { ProjectName } from './ProjectName';
-import { deleteProject } from '../../actions/projects';
 
 const useStyles = makeStyles({
   root: {
@@ -18,41 +16,36 @@ const useStyles = makeStyles({
   },
 });
 
-export const ProjectItem = ({ project }) => {
+const ProjectItem = ({
+  project,
+  selected,
+  showConfirm,
+  handleOnSelected,
+  handleOnClick,
+  handleOnDelete,
+}) => {
   const classes = useStyles();
-  const [showConfirm, setShowConfirm] = useState(false);
-  const { selectedProject, setSelectedProject } = useSelectedProjectValue();
-
-  const handleOnSelected = useCallback(
-    () => setSelectedProject(project.projectId),
-    [project]
-  );
-
-  const handleDeleteProject = useCallback(() => {
-    deleteProject(project.docId).then(() => {
-      setSelectedProject('INBOX');
-      console.log('delted doc', project.docId);
-    });
-  }, [project]);
 
   return (
     <ListItem
       button
       className={classes.root}
       onClick={handleOnSelected}
-      selected={selectedProject === project.projectId}
+      selected={selected}
     >
       <ColoredBullet id={project.docId} />
       <ProjectName name={project.name} />
-      <DeleteProjectBtn {...{ btnClass: classes.deleteBtn, setShowConfirm }} />
+      <DeleteProjectBtn {...{ btnClass: classes.deleteBtn, handleOnClick }} />
       <DeleteProjectDialog
         {...{
           showConfirm,
-          setShowConfirm,
+          handleOnClick,
           project,
-          handleDeleteProject,
+          handleOnDelete,
         }}
       />
     </ListItem>
   );
 };
+
+export default ProjectItem;

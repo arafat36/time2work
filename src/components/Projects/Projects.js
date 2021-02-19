@@ -1,11 +1,10 @@
 import React from 'react';
 import { List } from '@material-ui/core';
-import { useProjectsValue } from '../../context';
-import { ProjectItem } from './ProjectItem';
+import { ProjectItem } from '../../containers/ProjectItem';
 
-export const Projects = () => {
-  const { projects } = useProjectsValue();
-
+function Projects({ projects }) {
+  // console.count('Projects Component');
+  // console.log('projects', projects);
   return (
     <List component="div" disablePadding>
       {projects?.map((project) => (
@@ -13,4 +12,6 @@ export const Projects = () => {
       ))}
     </List>
   );
-};
+}
+
+export default Projects;
