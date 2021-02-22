@@ -1,11 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Box, List, ListItem, Typography } from '@material-ui/core';
+import React, { useState, useEffect, useCallback } from 'react';
+import {
+  Box,
+  List,
+  ListItem,
+  Typography,
+  Checkbox,
+  Divider,
+  ListItemIcon,
+  ListItemText,
+} from '@material-ui/core';
 import { useTasks } from '../../hooks';
 import { collatedTasks } from '../../constants';
 import { getTitle, getCollatedTitle, collatedTasksExist } from '../../helpers';
 import { useSelectedProjectValue, useProjectsValue } from '../../context';
-import { TaskItem } from './TaskItem';
 import { AddTask } from './AddTask';
+import { archiveTask } from '../../api/tasks';
 
 export const Tasks = () => {
   const { selectedProject } = useSelectedProjectValue();
@@ -41,7 +50,7 @@ export const Tasks = () => {
       <List>
         {tasks.length ? (
           tasks.map((task) => (
-            <TaskItem
+            <Tasks.Item
               key={task.id}
               {...{
                 id: task.id,
@@ -58,5 +67,23 @@ export const Tasks = () => {
         )}
       </List>
     </Box>
+  );
+};
+
+Tasks.Item = function TaskItem({ id, task }) {
+  const handleArchive = useCallback(() => {
+    archiveTask(id);
+  }, [id]);
+
+  return (
+    <>
+      <ListItem dense>
+        <ListItemIcon>
+          <Checkbox checked={false} tabIndex={-1} onClick={handleArchive} />
+        </ListItemIcon>
+        <ListItemText primary={task} />
+      </ListItem>
+      <Divider variant="inset" light />
+    </>
   );
 };

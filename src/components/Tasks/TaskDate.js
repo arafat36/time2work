@@ -1,5 +1,7 @@
+import { IconButton } from '@material-ui/core';
 import React, { useState } from 'react';
-import { TaskDateIconBtn } from './TaskDateIconBtn';
+import { FaRegCalendarAlt } from 'react-icons/fa';
+// import { TaskDateIconBtn } from './TaskDateIconBtn';
 import { TaskDateMenu } from './TaskDateMenu';
 
 export const TaskDate = ({ taskDateRef }) => {
@@ -9,8 +11,16 @@ export const TaskDate = ({ taskDateRef }) => {
   };
   return (
     <>
-      <TaskDateIconBtn handleClick={handleBtnClicked} />
+      <TaskDate.Icon handleClick={handleBtnClicked} />
       <TaskDateMenu {...{ anchorEl, setAnchorEl, taskDateRef }} />
     </>
+  );
+};
+
+TaskDate.Icon = function TaskDateIconBtn({ handleClick }) {
+  return (
+    <IconButton onClick={handleClick}>
+      <FaRegCalendarAlt />
+    </IconButton>
   );
 };

@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -6,9 +7,11 @@ import {
   makeStyles,
   FormControlLabel,
   Switch,
+  Drawer,
+  Hidden,
 } from '@material-ui/core';
-import { AddCircle } from '@material-ui/icons';
-import React from 'react';
+import { AddCircle, MenuRounded } from '@material-ui/icons';
+import { Sidebar } from './Sidebar';
 
 const useStyles = makeStyles({
   root: {
@@ -32,14 +35,26 @@ const useStyles = makeStyles({
 export const Header = ({ darkMode, setDarkMode }) => {
   const classes = useStyles();
   const handleDarkMode = () => setDarkMode((dark) => !dark);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  function handleDrawerToggle() {
+    setDrawerOpen((state) => !state);
+  }
   return (
-    <AppBar position="sticky" className={classes.root}>
-      <Toolbar className={classes.toolbar}>
-        <Header.Logo className={classes.logo} />
-        <Header.AddTaskButton className={classes.addButton} />
-        <Header.DarkModeSwitch checked={darkMode} onChange={handleDarkMode} />
-      </Toolbar>
-    </AppBar>
+    <>
+      <AppBar position="sticky" className={classes.root}>
+        <Toolbar className={classes.toolbar}>
+          <Header.SideDrawerBtn handleToggle={handleDrawerToggle} />
+          <Header.Logo className={classes.logo} />
+          {/* <Header.AddTaskButton className={classes.addButton} />
+          <Header.DarkModeSwitch checked={darkMode} onChange={handleDarkMode} /> */}
+        </Toolbar>
+        <Header.SideDrawer
+          open={drawerOpen}
+          handleToggle={handleDrawerToggle}
+        />
+      </AppBar>
+    </>
   );
 };
 
@@ -67,6 +82,26 @@ Header.DarkModeSwitch = function darkModeSwitch(props) {
       label="Dark Mode"
       labelPlacement="end"
     />
+  );
+};
+
+Header.SideDrawer = function SideDrawer({ open, handleToggle }) {
+  return (
+    <Hidden lgUp>
+      <Drawer open={open} onClose={handleToggle}>
+        <Sidebar />
+      </Drawer>
+    </Hidden>
+  );
+};
+
+Header.SideDrawerBtn = function SideDrawerBtn({ handleToggle }) {
+  return (
+    <Hidden lgUp>
+      <IconButton onClick={handleToggle}>
+        <MenuRounded />
+      </IconButton>
+    </Hidden>
   );
 };
 

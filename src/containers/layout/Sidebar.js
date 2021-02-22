@@ -9,7 +9,7 @@ export const Sidebar = () => {
   const [showProjects, setShowProjects] = useState(true);
 
   return (
-    <Box m={1} my={3} pr={3}>
+    <Box m={1} my={3} pr={3} minWidth="300px">
       <CollatedTasks />
       <ProjectsToggle {...{ setShowProjects, showProjects }} />
       <Divider />

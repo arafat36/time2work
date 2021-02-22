@@ -32,8 +32,8 @@ export const AddTaskForm = ({ setShowForm }) => {
     const task = taskRef.current.value;
     const projectId = projectIdRef.current;
     const taskDate = getTaskDate(taskDateRef, selectedProject);
-    console.log('[addTaskForm] taskDateRef', taskDateRef);
-    console.log('[addTaskForm]', projectId, task, taskDate);
+    // console.log('[addTaskForm] taskDateRef', taskDateRef);
+    // console.log('[addTaskForm]', projectId, task, taskDate);
     if (task) addTask(projectId, task, taskDate);
 
     // Reset values

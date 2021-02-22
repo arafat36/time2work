@@ -1,9 +1,16 @@
 import React from 'react';
-import { ListItem, makeStyles } from '@material-ui/core';
+import {
+  Icon,
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+  makeStyles,
+} from '@material-ui/core';
+import { DeleteRounded } from '@material-ui/icons';
+import { randomColor } from 'randomcolor';
 import { DeleteProjectDialog } from './DeleteProjectDialog';
-import { ColoredBullet } from './ColoredBullet';
-import { DeleteProjectBtn } from './DeleteProjectBtn';
-import { ProjectName } from './ProjectName';
 
 const useStyles = makeStyles({
   root: {
@@ -33,9 +40,11 @@ const ProjectItem = ({
       onClick={handleOnSelected}
       selected={selected}
     >
-      <ColoredBullet id={project.docId} />
-      <ProjectName name={project.name} />
-      <DeleteProjectBtn {...{ btnClass: classes.deleteBtn, handleOnClick }} />
+      <ProjectItem.Bullet id={project.docId} />
+      <ProjectItem.Name name={project.name} />
+      <ProjectItem.DeleteBtn
+        {...{ btnClass: classes.deleteBtn, handleOnClick }}
+      />
       <DeleteProjectDialog
         {...{
           showConfirm,
@@ -45,6 +54,37 @@ const ProjectItem = ({
         }}
       />
     </ListItem>
+  );
+};
+
+ProjectItem.Name = function ProjectName({ name }) {
+  return <ListItemText primary={name} />;
+};
+
+ProjectItem.DeleteBtn = function DeleteProjectBtn({ btnClass, handleOnClick }) {
+  return (
+    <ListItemSecondaryAction>
+      <IconButton
+        className={btnClass}
+        disableFocusRipple
+        disableRipple
+        size="small"
+        onClick={handleOnClick}
+      >
+        <DeleteRounded />
+      </IconButton>
+    </ListItemSecondaryAction>
+  );
+};
+
+ProjectItem.Bullet = function ColoredBullet({ id }) {
+  const iconColor = randomColor({ seed: id });
+  return (
+    <ListItemIcon>
+      <Icon style={{ color: `${iconColor}` }} fontSize="large">
+        &bull;
+      </Icon>
+    </ListItemIcon>
   );
 };
 

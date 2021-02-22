@@ -1,5 +1,6 @@
+import { IconButton } from '@material-ui/core';
 import React, { useState } from 'react';
-import { ProjectOverlayIconBtn } from './ProjectOverlayIconBtn';
+import { FaRegListAlt } from 'react-icons/fa';
 import { ProjectOverlayMenu } from './ProjectOverlayMenu';
 
 export const ProjectOverlay = ({ projectIdRef }) => {
@@ -9,9 +10,17 @@ export const ProjectOverlay = ({ projectIdRef }) => {
   };
   return (
     <>
-      <ProjectOverlayIconBtn handleClick={handleBtnClicked} />
+      <ProjectOverlay.Btn handleClick={handleBtnClicked} />
       <ProjectOverlayMenu {...{ anchorEl, setAnchorEl, projectIdRef }} />
     </>
+  );
+};
+
+ProjectOverlay.Btn = function ProjectOverlayBtn({ handleClick }) {
+  return (
+    <IconButton onClick={handleClick}>
+      <FaRegListAlt />
+    </IconButton>
   );
 };
 

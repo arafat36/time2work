@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid, makeStyles } from '@material-ui/core';
+import { Container, Grid, Hidden, makeStyles } from '@material-ui/core';
 import { Sidebar } from './Sidebar';
 import { Tasks } from '../../components/Tasks/Tasks';
 import { ArchivedTasks } from '../../components/ArchivedTasks/ArchivedTasks';
@@ -18,11 +18,13 @@ export const Content = () => {
   const classes = useStyles();
   return (
     <Container className={classes.root}>
-      <Grid container spacing={2}>
-        <Grid item md={3}>
-          <Sidebar />
-        </Grid>
-        <Grid item md={9}>
+      <Grid container spacing={2} justify="center">
+        <Hidden mdDown>
+          <Grid item md={3}>
+            <Sidebar />
+          </Grid>
+        </Hidden>
+        <Grid item xs={12} md={9}>
           <Tasks />
           <ArchivedTasks />
         </Grid>
